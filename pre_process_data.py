@@ -94,6 +94,6 @@ if __name__ == "__main__":
 
     df = cleanse_data(df)
 
-    df["time_rounded_to_h"] = df['time'].dt.round('H').values
+    # df["time_rounded"] = df['time'].apply(lambda t : t.round('H')
 
     df.to_csv(fr'./data/{file_name}.csv', index = False)

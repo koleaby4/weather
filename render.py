@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # ==== avg temperature by country and time ====
 
-    temp_by_country_and_time = df.groupby(['country', 'time_rounded_to_h'],  as_index=False)['temp'].agg('mean')
+    temp_by_country_and_time = df.groupby(['country', 'time'],  as_index=False)['temp'].agg('mean')
     temp_by_country_and_time.columns = ["country", "time", "avg_temp"]
 
     fig = px.scatter(
@@ -39,10 +39,3 @@ if __name__ == "__main__":
     # temp_by_country_and_time.show()
 
     # gmaps.configure(api_key=os.environ["GOOGLE_API_KEY"])
-
-    # ----------------------------------------------------------------------
-
-
-
-    # fig = px.line(df, x="year", y="lifeExp", title='Life expectancy in Canada')
-    # fig.show()
