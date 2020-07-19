@@ -8,30 +8,30 @@ if __name__ == "__main__":
 
     # ==== temprerature by city and time ====
 
-    # fig = px.scatter(
-    #     df,
-    #     x="city_name",
-    #     y="time",
-    #     color="temp"
-    # )
+    fig = px.scatter(
+        df,
+        x="city_name",
+        y="time",
+        color="temp"
+    )
 
-    # fig.show()
+    fig.show()
 
 
     # ==== avg temperature by country and time ====
 
-    temp_by_country_and_time = df.groupby(['country', 'time'],  as_index=False)['temp'].agg('mean')
-    temp_by_country_and_time.columns = ["country", "time", "avg_temp"]
+    # temp_by_country_and_time = df.groupby(['country', 'time'],  as_index=False)['temp'].agg('mean')
+    # temp_by_country_and_time.columns = ["country", "time", "avg_temp"]
 
-    fig = px.scatter(
-        temp_by_country_and_time,
-        x="country",
-        y="time",
-        color="avg_temp",
-        title='Avg temperature by country and time (rounded to h)'
-    )
+    # fig = px.scatter(
+    #     temp_by_country_and_time,
+    #     x="country",
+    #     y="time",
+    #     color="avg_temp",
+    #     title='Avg temperature by country and time (rounded to h)'
+    # )
 
-    fig.show()
+    # fig.show()
 
     # ----------------------------------------------------------------------
 
