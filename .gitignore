@@ -4,6 +4,5 @@
 .vscode/
 __pycache__/
 data/
-*.ipynb
 *.pyc
 secret.txt

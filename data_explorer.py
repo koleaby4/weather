@@ -34,3 +34,16 @@ def get_time_interval_from_records(records):
     start = datetime.datetime.fromtimestamp(min(times))
     end = datetime.datetime.fromtimestamp(max(times))
     return (start, end)
+
+def get_pressure_to_humidity_pairs(records):
+    zipped = [(x["main"]["pressure"], x["main"]["humidity"]) for x in records]
+    return list(zip(*zipped))
+
+
+def get_temperature_to_pressure_pairs(records):
+    zipped = [(x["main"]["temp"], x["main"]["pressure"]) for x in records]
+    return list(zip(*zipped))
+
+def get_pressure_to_wind_speed_pairs(records):
+    zipped = [(x["main"]["pressure"], x["wind"]["speed"]) for x in records]
+    return list(zip(*zipped))

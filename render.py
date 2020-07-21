@@ -21,7 +21,7 @@ def get_api_key():
     return api_key
 
 
-def render_data_points_figure(data):
+def get_data_points_figure(data):
     gmaps.configure(api_key=get_api_key())
     fig = gmaps.figure(map_type="ROADMAP", zoom_level=2, center=(30, 31))
     heatmap_layer = gmaps.heatmap_layer(data)
