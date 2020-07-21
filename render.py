@@ -1,22 +1,45 @@
+import os
+import pathlib
+
+import gmaps
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import plotly.express as px
-import gmaps
-import os
+
+from data_explorer import *
+
+
+def get_api_key():
+    api_key = os.environ.get("GOOGLE_API_KEY") or pathlib.Path("secret.txt").read_text().strip()
+
+    if not api_key:
+        msg = "Could not find gmaps api key.\n"
+        msg += "Please declare it in 'GOOGLE_API_KEY' env variable or place into secret.txt"
+        raise RuntimeError(msg)
+
+    return api_key
+
+
+def render_data_points_figure(data):
+    gmaps.configure(api_key=get_api_key())
+    fig = gmaps.figure(map_type="ROADMAP", zoom_level=2, center=(30, 31))
+    heatmap_layer = gmaps.heatmap_layer(data)
+    heatmap_layer.max_intensity = 100
+    heatmap_layer.point_radius = 5
+
+    fig.add_layer(heatmap_layer)
+    return fig
+
 
 if __name__ == "__main__":
-    df = pd.read_csv(r"./data/weather.csv")
+    # df = pd.read_csv(r"./data/weather.csv")
 
-    # ==== temprerature by city and time ====
+    # ==== temperatures by city and time ====
 
-    fig = px.scatter(
-        df,
-        x="city_name",
-        y="time",
-        color="temp"
-    )
+    # fig = px.scatter(df, x="city_name", y="time", color="temp")
 
-    fig.show()
-
+    # fig.show()
 
     # ==== avg temperature by country and time ====
 
@@ -39,3 +62,12 @@ if __name__ == "__main__":
     # temp_by_country_and_time.show()
 
     # gmaps.configure(api_key=os.environ["GOOGLE_API_KEY"])
+
+    # heatmap_layer = gmaps.heatmap_layer(coords)
+    # heatmap_layer.max_intensity = 100
+    # heatmap_layer.point_radius = 5
+
+    # fig.add_layer(heatmap_layer)
+    # fig
+
+    print(get_api_key())
