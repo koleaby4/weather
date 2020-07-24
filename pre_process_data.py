@@ -49,11 +49,11 @@ def expand_column(df, col_name):
     frame = df[col_name].apply(pd.Series)
     frame.columns = [f"{col_name}_{x}" for x in frame.columns]
 
+    df.drop(col_name, axis=1, inplace=True)
+    df = pd.concat([df, frame], axis=1)
     # Drop rows with any empty cells
     df.dropna(axis=0, how='any', thresh=None,subset=None, inplace=True)
 
-    df = pd.concat([df, frame], axis=1)
-    df = df.drop(col_name, axis=1)
     return df
 
 def replace_in_column_names(df, old_value, new_value):

@@ -1,5 +1,6 @@
 import json
 import datetime
+import pandas as pd
 
 
 def get_records(file_path):
@@ -22,17 +23,15 @@ def get_temperatures_from_records(records):
 
 
 def get_coords(records):
-    results = []
     for record in records:
         lon, lat = record["city"]["coord"].values()
-        results.append((lat, lon,))
-    return results
+        yield (lat, lon,)
 
 
 def get_time_interval_from_records(records):
-    times = {x["time"] for x in records}
-    start = datetime.datetime.fromtimestamp(min(times))
-    end = datetime.datetime.fromtimestamp(max(times))
+    time_series = pd.Series([x["time"] for x in records])
+    start = datetime.datetime.fromtimestamp(pd.Series.min(time_series))
+    end = datetime.datetime.fromtimestamp(pd.Series.max(time_series))
     return (start, end)
 
 def get_pressure_to_humidity_pairs(records):
