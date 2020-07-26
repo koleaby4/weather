@@ -2,12 +2,9 @@ import os
 import pathlib
 
 import gmaps
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import plotly.express as px
-
-from data_explorer import *
 
 
 def get_api_key():
