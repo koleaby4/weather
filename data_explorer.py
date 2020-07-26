@@ -1,6 +1,27 @@
 import json
 import datetime
 import pandas as pd
+import urllib.request
+from pathlib import Path
+import gzip
+
+
+def get_data():
+    data_folder = Path('./data')
+    gzip_data_file = data_folder / 'weatherjson.gz'
+
+    if not data_folder.exists():
+        data_folder.mkdir()
+
+    if not gzip_data_file.exists():
+        url = r'https://www.whiteswandata.com/s/weatherjson.gz'
+        urllib.request.urlretrieve(url, gzip_data_file)
+
+    destination_data_file = data_folder / "weather.json"
+    if not destination_data_file.exists():
+        compressed_file_content = gzip_data_file.read_bytes()
+        decompressed_content = gzip.decompress(compressed_file_content)
+        destination_data_file.write_bytes(decompressed_content)
 
 
 def get_records(file_path):
