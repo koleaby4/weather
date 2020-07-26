@@ -91,3 +91,30 @@ def get_points_within_distance(center, max_distance_km, records):
             results.append(x)
 
     return results
+
+def report_correlation(lhs, rhs):
+    correlation = pd.Series(lhs).corr(pd.Series(rhs))
+
+    if correlation > 0:
+        direction = "uphill"
+    elif correlation < 0:
+        direction = "downhill"
+    else:
+        direction = ""
+
+    abs_correlation = abs(correlation)
+
+    if abs_correlation < 0.1:
+        strength = "negligible"
+    elif abs_correlation < 0.3:
+        strength = "very weak"
+    elif abs_correlation < 0.5:
+        strength = "weak"
+    elif abs_correlation < 0.6:
+        strength = "moderate"
+    elif 0.7 < abs_correlation < 1:
+        strength = "strong"
+    elif abs_correlation == 1:
+        strength = "perfect"
+
+    return f"{correlation} # {strength} {direction} correlation"

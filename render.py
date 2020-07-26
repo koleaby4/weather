@@ -23,10 +23,14 @@ def get_api_key():
 
 def get_data_points_figure(data):
     gmaps.configure(api_key=get_api_key())
-    fig = gmaps.figure(map_type="ROADMAP", zoom_level=2, center=(30, 31))
+    figure_layout = {'height' : '500px', 'margin': '0 auto 0 auto'}
+    fig = gmaps.figure(map_type="ROADMAP", zoom_level=2, center=(30, 31), layout=figure_layout)
     heatmap_layer = gmaps.heatmap_layer(data)
     heatmap_layer.max_intensity = 100
-    heatmap_layer.point_radius = 5
+    heatmap_layer.point_radius = 1
+    heatmap_layer.dissipating = False
+
+    # ToDo: consider using gmaps.symbol_layer with small markers
 
     fig.add_layer(heatmap_layer)
     return fig
